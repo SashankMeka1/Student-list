@@ -9,6 +9,34 @@ struct Student{
 	int id;//student struct
 	float gpa;
 };
+int add(char * response, vector<Student*>*list){
+	Student *student = new Student;
+	strcpy(student->name, strtok(response, ","));
+	student->id = atoi(strtok(NULL, " ,"));
+	student->gpa = strtof(strtok(NULL, " ,"), NULL);
+	list->push_back(student);
+	return main();
+}
+int del(char * response, vector<Student*>*list){
+	cout<<"ID?"<<endl;//loop through and delete
+	cin >> response;
+	for(auto i = list->begin(); i != list->end();++i){
+		if((*i)->id == atoi(response)){
+			delete *i;
+			list->erase(i);
+			cout << "Deleted"<<endl;
+			return main();
+		}
+	}
+	cout << "Student not found"<<endl;
+	return main();
+}
+int print(char * response, vector<Student*>*list){
+	for(auto i = list->begin(); i !=list->end();++i){
+		cout<<"Name, "<<(*i)->name<<" ID, "<<(*i)->id<<" GPA, "<<(*i)->gpa<<endl;
+	}//loop through and print
+	return main();	
+}
 int main(){
 	static char response[100];//static for memory conservation
 	static vector<Student*>*list = new vector<Student*>;//static so list is same
@@ -22,33 +50,14 @@ int main(){
 			return main();
 		}
 		else{//take token of data and add to list
-			Student *student = new Student;
-			strcpy(student->name, strtok(response, ","));
-		      	student->id = atoi(strtok(NULL, " ,"));
-			student->gpa = strtof(strtok(NULL, " ,"), NULL);
-			list->push_back(student);
-			return main();
+			add(response, list);
 		}
 	}
 	else if(strcmp(response, "DELETE")==0){
-		cout<<"ID?"<<endl;//loop through and delete
-		cin >> response;
-		for(auto i = list->begin(); i != list->end();++i){
-			if((*i)->id == atoi(response)){
-				delete *i;
-				list->erase(i);
-				cout << "Deleted"<<endl;
-				return main();
-			}
-		}
-		cout << "Student not found"<<endl;
-		return main();
+		del(response, list);
 	}
 	else if(strcmp(response, "PRINT")==0){
-		for(auto i = list->begin(); i !=list->end();++i){
-			cout<<"Name, "<<(*i)->name<<" ID, "<<(*i)->id<<" GPA, "<<(*i)->gpa<<endl;
-		}//loop through and print
-		return main();	
+		print(response, list);
 	}
 	else if(strcmp(response, "QUIT")==0){
 		delete list;//dynamic so delete and end
