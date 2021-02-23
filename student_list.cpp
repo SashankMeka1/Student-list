@@ -2,7 +2,6 @@
 #include <vector>
 #include <cstring>
 #include <cstdlib>
-#include <iomanip>
 using namespace std;
 int main();
 struct Student{
@@ -37,7 +36,7 @@ int del(char * response, vector<Student*>*list){
 }
 int print(char * response, vector<Student*>*list){
 	for(auto i = list->begin(); i !=list->end();++i){
-		cout<<"Name, "<<(*i)->name<<" ID, "<<(*i)->id<<" GPA, "<<setprecision(3)<< (*i)->gpa<<endl;
+		cout<<"Name, "<<(*i)->name<<" ID, "<<(*i)->id<<" GPA, "<< (*i)->gpa<<endl;
 	}//loop through and print
 	return main();	
 }
