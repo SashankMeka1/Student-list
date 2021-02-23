@@ -2,22 +2,20 @@
 #include <vector>
 #include <cstring>
 #include <cstdlib>
+#include <iomanip>
 using namespace std;
 int main();
 struct Student{
 	char name[20];
 	int id;//student struct
-	char* gpa;
+	float gpa;
 };
 int add(char * response, vector<Student*>*list){
 	//cast add data to struct and push back on vector
 	Student *student = new Student;
 	strcpy(student->name, strtok(response, ","));//take each token before comma and add to list
 	student->id = atoi(strtok(NULL, " ,"));
-	student->gpa = strtok(NULL, " ,");
-	if(strlen(student->gpa)!=4){
-		strcat(student->gpa, "0");
-	}
+	student->gpa = strtof(strtok(NULL, " ,"), NULL);
 	list->push_back(student);
 	return main();
 }
@@ -39,7 +37,7 @@ int del(char * response, vector<Student*>*list){
 }
 int print(char * response, vector<Student*>*list){
 	for(auto i = list->begin(); i !=list->end();++i){
-		cout<<"Name, "<<(*i)->name<<" ID, "<<(*i)->id<<" GPA, "<< (*i)->gpa<<endl;
+		cout<<"Name, "<<(*i)->name<<" ID, "<<(*i)->id<<" GPA, "<< setprecision(2)<<fixed<<(*i)->gpa<<endl;
 	}//loop through and print
 	return main();	
 }
