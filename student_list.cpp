@@ -15,6 +15,9 @@ int add(char * response, vector<Student*>*list){
 	strcpy(student->name, strtok(response, ","));//take each token before comma and add to list
 	student->id = atoi(strtok(NULL, " ,"));
 	student->gpa = strtok(NULL, " ,");
+	if(strlen(student->gpa)!=4){
+		strcat(student->gpa, "0");
+	}
 	list->push_back(student);
 	return main();
 }
@@ -50,7 +53,7 @@ int main(){
 	if(strcmp(response, "ADD")==0){
 		cout<< "Give student information in format:name,id,gpa.NO SPACES except in name."<<endl;
 		cin.getline(response,100);//get student data
-		if(strchr(strchr(response, ' ')+1, ' ')){//keep out the spaces
+		if(strchr(strchr(response, ','), ' ')){//keep out the spaces
 			cout << "NO SPACES except in name"<<endl;
 			return main();
 		}
