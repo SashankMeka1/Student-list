@@ -12,7 +12,7 @@ struct Student{
 int add(char * response, vector<Student*>*list){
 	//cast add data to struct and push back on vector
 	Student *student = new Student;
-	strcpy(student->name, strtok(response, ","));
+	strcpy(student->name, strtok(response, ","));//take each token before comma and add to list
 	student->id = atoi(strtok(NULL, " ,"));
 	student->gpa = strtok(NULL, " ,");
 	list->push_back(student);
